@@ -1,22 +1,30 @@
 /* ============================================================================
- * Imports
+ * Actions
  * ========================================================================= */
-import { reducer as loggedIn } from '../loggedIn';
-import { reducer as theme } from '../theme';
+const actions = {
+  login: () => ({ type: 'LOGIN' }),
+  logout: () => ({ type: 'LOGOUT' })
+};
 
 /* ============================================================================
- * Combine
+ * Reducers
  * ========================================================================= */
-import { combineReducers } from 'redux';
-const reducers = combineReducers
-  (
-    {
-      loggedIn,
-      theme
-    }
-  );
+const reducer = (state = false, action) => {
+
+  switch (action.type) {
+
+    case 'LOGIN':
+      return true;
+
+    case 'LOGOUT':
+      return false;
+
+    default:
+      return state;
+  }
+}
 
 /* ============================================================================
  * Exports
  * ========================================================================= */
-export default reducers;
+export { actions, reducer };
