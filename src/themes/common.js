@@ -1,7 +1,7 @@
 /* ============================================================================
  * Common theme settings
  * ========================================================================= */
-export default {
+const theme = {
   header: {
     height: 48
   },
@@ -9,4 +9,6 @@ export default {
   footer: {
     height: 25
   }
-}
+};
+
+export default theme;

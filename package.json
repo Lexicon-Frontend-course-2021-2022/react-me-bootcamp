@@ -1,11 +1,13 @@
 {
     "name": "react-me-bootcamp",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "private": true,
     "dependencies": {
+        "@auth0/auth0-react": "^1.8.0",
         "@testing-library/jest-dom": "^5.15.1",
         "@testing-library/react": "^11.2.7",
         "@testing-library/user-event": "^12.8.3",
+        "auth0-spa-js": "^1.6.5",
         "lodash": "^4.17.21",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",

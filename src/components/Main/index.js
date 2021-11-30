@@ -1,7 +1,7 @@
 /* ============================================================================
  * Imports
  * ========================================================================= */
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import actions from '../../state/actions'
 
 /* ============================================================================
@@ -20,7 +20,7 @@ const Main = styled.main`
 const Component = () => {
 
   /* Boilerplate */
-  const state = useSelector(state => state);
+  //const state = useSelector(state => state);
   const dispatch = useDispatch();
 
 

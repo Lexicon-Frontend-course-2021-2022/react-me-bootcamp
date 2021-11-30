@@ -22,8 +22,10 @@ const Footer = styled.footer`
 const Copyright = styled.div`
 font-size: ${(state) => state.theme.footer.height * .5}px;
 `
-const Version = styled.div`
+
+const A = styled.a`
   font-size: ${(state) => state.theme.footer.height * .5}px;
+  color: ${(state) => state.theme.footer.color};
 `
 
 /* ============================================================================
@@ -33,9 +35,9 @@ const Component = () => {
   return (
     <>
       <Footer>
-        <Version>{packageJson.name} v{packageJson.version}</Version>
+        <A target="_new" href="https://github.com/Lexicon-Frontend-course-2021-2022/react-me-bootcamp">{packageJson.name} v{packageJson.version}</A>
         -
-        <Copyright>Copyright &copy; 2021 - Thomas Hellström</Copyright>
+        <Copyright>Copyright &copy; 2021 - <A href="mailto:rel@xed.se?subject=Cool project bro!">Thomas Hellström</A></Copyright>
       </Footer>
     </>
   )

@@ -10,11 +10,16 @@ import actions from '../state/actions'
 import { ThemeProvider } from 'styled-components';
 
 /* ============================================================================
+ * Auth0
+ * ========================================================================= */
+import { useAuth0 } from "@auth0/auth0-react";
+
+/* ============================================================================
  * Components
  * ========================================================================= */
 import Header from './Header';
 import Main from './Main';
-import Component from './Footer';
+import Footer from './Footer';
 
 /* ============================================================================
  * Style
@@ -62,9 +67,21 @@ const AppStyle = createGlobalStyle`
  * ========================================================================= */
 function App() {
 
+
   /* Boilerplate */
   const state = useSelector(state => state);
   const dispatch = useDispatch();
+
+  const { user, isAuthenticated } = useAuth0();
+
+  if (isAuthenticated && !state.user) {
+    dispatch(actions.user.login(user));
+  }
+
+  if (!isAuthenticated && state.user) {
+    dispatch(actions.user.logout());
+  }
+  console.log(state);
 
   return (
     <ThemeProvider theme={state.theme}>
@@ -73,14 +90,7 @@ function App() {
       <div className="App">
         <Header />
         <Main />
-        <Component />
-        {/* <h1>{packageJson.name} {packageJson.version}</h1>
-
-      <div className="Login">
-        <h3>Logged in: {state.loggedIn ? 'Yes' : 'No'}</h3>
-
-      </div> */}
-
+        <Footer />
       </div>
     </ThemeProvider>
   );

@@ -2,22 +2,22 @@
  * Actions
  * ========================================================================= */
 const actions = {
-  login: () => ({ type: 'LOGIN' }),
+  login: (payload) => ({ type: 'LOGIN', payload }),
   logout: () => ({ type: 'LOGOUT' })
 };
 
 /* ============================================================================
  * Reducers
  * ========================================================================= */
-const reducer = (state = false, action) => {
+const reducer = (state = null, action) => {
 
   switch (action.type) {
 
     case 'LOGIN':
-      return true;
+      return action.payload;
 
     case 'LOGOUT':
-      return false;
+      return null;
 
     default:
       return state;

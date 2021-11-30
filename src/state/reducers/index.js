@@ -1,8 +1,9 @@
 /* ============================================================================
  * Imports
  * ========================================================================= */
-import { reducer as loggedIn } from '../loggedIn';
 import { reducer as theme } from '../theme';
+import { reducer as user } from '../user';
+
 
 /* ============================================================================
  * Combine
@@ -11,8 +12,8 @@ import { combineReducers } from 'redux';
 const reducers = combineReducers
   (
     {
-      loggedIn,
-      theme
+      theme,
+      user
     }
   );
 

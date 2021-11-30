@@ -1,15 +1,15 @@
 /* ============================================================================
  * Imports
  * ========================================================================= */
-import { actions as loggedIn } from '../loggedIn';
+import { actions as user } from '../user';
 import { actions as theme } from '../theme';
 
 /* ============================================================================
  * Exports
  * ========================================================================= */
 const actions = {
-  loggedIn,
-  theme
+  theme,
+  user
 };
 
 export default actions;

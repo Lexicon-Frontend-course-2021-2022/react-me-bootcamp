@@ -1,4 +1,3 @@
-//import logo from './logo.png';
 import dark from './logo-dark.png';
 import light from './logo-light.png';
 
@@ -8,7 +7,7 @@ import light from './logo-light.png';
 import styled from "styled-components";
 
 const Logo = styled.div`
-  background-image: url("${(state) => state.theme.name == 'Dark' ? dark : light}");
+  background-image: url("${(state) => state.theme.name === 'Dark' ? dark : light}");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

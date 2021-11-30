@@ -1,40 +1,41 @@
 /* ============================================================================
- * Imports
+ * Render a gravatar
  * ========================================================================= */
-import light from '../themes/light';
-import dark from '../themes/dark';
-
-const themes = {
-  light, dark
-}
 
 /* ============================================================================
- * Actions
+ * Styling
  * ========================================================================= */
-const actions = {
-  dark: () => ({ type: 'DARK' }),
-  light: () => ({ type: 'LIGHT' })
+import styled from "styled-components";
+
+const Gravatar = styled.img`
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 auto 0 0;
+  border-radius: 50%;
+  margin: 0;
+  cursor: pointer;
+  height: 100%;
+`
+
+/* ============================================================================
+ * Component
+ * ========================================================================= */
+
+const Component = ({ url, onClick }) => {
+
+  return (
+    <>
+      <Gravatar
+        src={url}
+        onClick={onClick}
+      />
+
+    </>
+  );
 };
-
-/* ============================================================================
- * Reducers
- * ========================================================================= */
-const reducer = (state = themes.light, action) => {
-
-  switch (action.type) {
-
-    case 'DARK':
-      return themes.dark;
-
-    case 'LIGHT':
-      return themes.light;
-
-    default:
-      return state;
-  }
-}
 
 /* ============================================================================
  * Exports
  * ========================================================================= */
-export { actions, reducer };
+export default Component;
