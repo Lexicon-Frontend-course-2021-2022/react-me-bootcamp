@@ -47,28 +47,18 @@ const UserWidget = () => {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const { loginWithPopup } = useAuth0();
-
   if (state.user) {
     return (
-      <User>
-        <Gravatar
-          url={state.user.picture}
-          onClick={() => {
-            dispatch(actions.menu.toggle());
-          }}
-        />
+      <User onMouseEnter={() => { dispatch(actions.menu.show()); }}>
+        <Gravatar url={state.user.picture} />
         <Username>{state.user.name}</Username>
       </User>
     )
   }
   else {
     return (
-      <User>
-        <Gravatar
-          url={state.theme.name === 'Dark' ? dark : light}
-          onClick={() => loginWithPopup()}
-        />
+      <User onMouseEnter={() => { dispatch(actions.menu.show()); }}>
+        <Gravatar url={state.theme.name === 'Dark' ? dark : light} />
         <Username>Not logged in</Username>
       </User>
     )

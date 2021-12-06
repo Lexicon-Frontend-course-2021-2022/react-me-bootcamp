@@ -20,7 +20,7 @@ const Header = styled.header`
   padding: 0 10px;
   border-bottom: 1px solid ${(state) => state.theme.header.color}4;
   border-top: 1px solid ${(state) => state.theme.header.color}4;
-
+  height: 100%;
 `;
 
 /* ============================================================================

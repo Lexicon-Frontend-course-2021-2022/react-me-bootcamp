@@ -17,7 +17,6 @@ const Slider = styled.div`
   padding: 0;
   display: flex;
   align-items: center;
-  justify-content: ${(state) => state.theme.name === 'Light' ? 'flex-start' : 'flex-end'};
 `
 
 const Knob = styled.div`
@@ -42,9 +41,8 @@ const SliderWidget = ({ enabled, enabledColor, disabledColor }) => {
   return (
     <Slider
       style={{
-        backgroundColor: enabled ?
-          enabledColor :
-          disabledColor
+        backgroundColor: enabled ? enabledColor : disabledColor,
+        justifyContent: enabled ? "flex-end" : "flex-start"
       }}> <Knob /></Slider >
   );
 }

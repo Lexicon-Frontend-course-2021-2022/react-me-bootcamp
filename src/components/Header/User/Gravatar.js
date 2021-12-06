@@ -10,7 +10,6 @@ import styled from "styled-components";
 const Gravatar = styled.img`
   border-radius: 50%;
   margin: 0;
-  cursor: pointer;
   height: 100%;
 `
 

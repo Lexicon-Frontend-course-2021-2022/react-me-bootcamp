@@ -37,7 +37,7 @@ const GlobalStyle = createGlobalStyle`
 *::before {
   box-sizing: border-box;
   font-family: 'Outfit', sans-serif;
-  transition: 0.5s;
+  transition: 0.1s;
 }
 
 body {
@@ -55,7 +55,7 @@ button {
   margin 1px;
   border-radius: 14px;
   padding: 0 10px;
-  transition: 0.3s;
+  transition: 0.1s;
   opacity: 0.5;
 }
 

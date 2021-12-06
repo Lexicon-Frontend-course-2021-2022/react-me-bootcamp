@@ -22,34 +22,39 @@ import Slider from '../../Widgets/Slider';
 import styled from "styled-components";
 
 const Menu = styled.div`
+  padding: 5px 0 5px 0;
   position: absolute;
   background-color: ${(state) => state.theme.header.backgroundColor};
   color: ${(state) => state.theme.header.color};
   width: 200px;
-  padding: 0 5px 0 5px;
   border: 1px solid ${(state) => state.theme.header.color}4;
   border-top: none;
   cursor: pointer;
 `;
 
 const MenuItem = styled.div`
-  height: 30px;
-  font-size: 14px;
-  font-weight: bold;
+  height: 26px;
+  font-size: 18px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-
+  padding-left: 5px;
 `;
+
+const Section = styled.div`
+  margin: 0 0 0 2px;
+  font-size: 10px;
+`
 
 const Br = styled.div`
   background-color: ${(state) => state.theme.header.color};
   height: 1px;
   opacity: 25%;
+  margin-top: 10px;
 `;
 
 const FloatRight = styled.div`
-  margin: 0 0 0 auto;
+  margin: 0 3px 0 auto;
 `
 
 
@@ -63,45 +68,64 @@ const UserMenu = () => {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const { logout } = useAuth0();
+  const { logout, loginWithPopup } = useAuth0();
 
-  if (state.user && state.menu) {
-    return (
-      <Menu>
+  if (state.menu) {
+    if (state.user) {
+      return (
+        <Menu onMouseLeave={() => dispatch(actions.menu.hide())}>
 
-        <MenuItem
-          onClick={() => {
-            saveSettings(state.user.nickname, 'theme',
-              state.theme.name === 'Dark' ? 'Light' : 'Dark');
+          <Section>Navigation</Section>
+
+          <MenuItem>Main page</MenuItem>
+          <MenuItem>Another page</MenuItem>
+          <MenuItem>A third page</MenuItem>
+
+          <Br />
+          <Section>Settings</Section>
+
+          <MenuItem onClick={() => {
+            saveSettings(state.user.nickname, 'theme', state.theme.name === 'Dark' ? 'Light' : 'Dark');
             dispatch(actions.theme.toggle());
+          }}>
+            Use dark theme
+            <FloatRight><Slider enabled={state.theme.name === 'Dark'} /></FloatRight>
+          </MenuItem>
 
-          }}
-        >
-          Dark theme
-          <FloatRight>
-            <Slider enabled={state.theme.name === 'Dark'} />
-          </FloatRight>
-        </MenuItem>
 
-        <Br />
+          <Br />
+          <Section>User</Section>
 
-        <MenuItem onClick={() => {
-          dispatch(actions.menu.hide());
-          dispatch(actions.theme.light());
-          //logout({ localOnly: true });
-          logout();
-          dispatch(actions.user.logout());
-        }}>
-          Logout
-        </MenuItem>
+          <MenuItem onClick={() => {
+            dispatch(actions.menu.hide());
+            dispatch(actions.theme.light());
+            logout();
+            dispatch(actions.user.logout());
+          }}>
+            <b>Log out</b>
+          </MenuItem>
 
-      </Menu>
-    )
+        </Menu>
+      )
+    } else {
+      return (
+        <Menu onMouseLeave={() => dispatch(actions.menu.hide())}>
+          <Section>User</Section>
+
+          <MenuItem onClick={() => {
+            dispatch(actions.menu.hide());
+            loginWithPopup();
+          }}>
+            <b>Log in</b>
+          </MenuItem>
+        </Menu>
+      )
+    }
+
   } else {
-    return (
-      <></>
-    )
+    return <></>;
   }
+
 };
 
 /* ============================================================================
