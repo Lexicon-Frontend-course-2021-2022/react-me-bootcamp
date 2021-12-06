@@ -8,6 +8,12 @@ const theme = {
 
   footer: {
     height: 25
+  },
+
+  highlight: {
+    neutral: '#0ff',
+    good: '#0f0',
+    bad: '#f00'
   }
 };
 

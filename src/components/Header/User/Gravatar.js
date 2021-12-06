@@ -8,10 +8,6 @@
 import styled from "styled-components";
 
 const Gravatar = styled.img`
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 0 auto 0 0;
   border-radius: 50%;
   margin: 0;
   cursor: pointer;
@@ -22,7 +18,7 @@ const Gravatar = styled.img`
  * Component
  * ========================================================================= */
 
-const Component = ({ url, onClick }) => {
+const GravatarWidget = ({ url, onClick }) => {
 
   return (
     <>
@@ -38,4 +34,4 @@ const Component = ({ url, onClick }) => {
 /* ============================================================================
  * Exports
  * ========================================================================= */
-export default Component;
+export default GravatarWidget;

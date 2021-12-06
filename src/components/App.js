@@ -4,10 +4,12 @@
 import { useSelector, useDispatch } from 'react-redux'
 import actions from '../state/actions'
 
+import { loadSettings } from '../lib/localStorage';
+
 /* ============================================================================
  * Styled components
  * ========================================================================= */
-import { ThemeProvider } from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
 
 /* ============================================================================
  * Auth0
@@ -30,17 +32,12 @@ import { createGlobalStyle } from 'styled-components';
  * Global style
  * ------------------------------------------------------------------------- */
 const GlobalStyle = createGlobalStyle`
-:root {
-  /* Layout */
-  --header-height: ${(state) => state.theme.header.height}px;
-  --footer-height: 20px;
-}
-
 *,
 *::after,
 *::before {
   box-sizing: border-box;
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'Outfit', sans-serif;
+  transition: 0.5s;
 }
 
 body {
@@ -48,25 +45,54 @@ body {
   height: 100wh;
   width: 100wv;
 }
+
+button {
+  border: none;
+  background-color: ${(state) => state.theme.header.backgroundColor};
+  color: ${(state) => state.theme.header.color};
+  cursor: pointer;
+  height: 28px;
+  margin 1px;
+  border-radius: 14px;
+  padding: 0 10px;
+  transition: 0.3s;
+  opacity: 0.5;
+}
+
+button.selected {
+  opacity: 1;
+}
+
+button:hover {
+  background-color: ${(state) => state.theme.header.color};
+  color: ${(state) => state.theme.header.backgroundColor};
+  opacity: 1;
+}
+
 `;
 
 /* ----------------------------------------------------------------------------
  * App style
  * ------------------------------------------------------------------------- */
-const AppStyle = createGlobalStyle`
-.App {
+const App = styled.div`
   height: 100%;
   display: grid;
-  grid-template-areas: "header" "main" "footer";
-  grid-template-rows: var(--header-height) calc(100vh - var(--header-height) - var(--footer-height)) var(--footer-height);
-}
+  grid-template-areas: 
+    "header" 
+    "main" 
+    "footer"
+  ;
+  grid-template-rows: 
+    ${(state) => state.theme.header.height}px
+    calc(100vh - ${(state) => state.theme.header.height}px - ${(state) => state.theme.footer.height}px) 
+    ${(state) => state.theme.footer.height}px
+  ;
 `
 
 /* ============================================================================
  * Component
  * ========================================================================= */
-function App() {
-
+function TheApp() {
 
   /* Boilerplate */
   const state = useSelector(state => state);
@@ -75,23 +101,36 @@ function App() {
   const { user, isAuthenticated } = useAuth0();
 
   if (isAuthenticated && !state.user) {
-    dispatch(actions.user.login(user));
+    /* 
+     * Wrap dispatch using a timer with timeout of 0ms. 
+     *
+     * This seems to be a good workaround for the following error: 
+     * 
+     * "Warning: Cannot update a component (`<whatever>`) while rendering a 
+     * different component (`<whatever_else`). To locate the bad setState() call
+     * inside `<wherever>`" 
+     */
+    setTimeout(() => {
+      dispatch(actions.user.login(user));
+      dispatch(actions.theme.set(loadSettings(user.nickname, 'theme')));
+    }
+      , 0);
+
+
   }
 
   if (!isAuthenticated && state.user) {
     dispatch(actions.user.logout());
   }
-  console.log(state);
 
   return (
     <ThemeProvider theme={state.theme}>
       <GlobalStyle />
-      <AppStyle />
-      <div className="App">
+      <App>
         <Header />
         <Main />
         <Footer />
-      </div>
+      </App>
     </ThemeProvider>
   );
 }
@@ -99,4 +138,4 @@ function App() {
 /* ============================================================================
  * Exports
  * ========================================================================= */
-export default App;
+export default TheApp;

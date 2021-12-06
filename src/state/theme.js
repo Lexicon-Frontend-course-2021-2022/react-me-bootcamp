@@ -12,8 +12,10 @@ const themes = {
  * Actions
  * ========================================================================= */
 const actions = {
-  dark: () => ({ type: 'DARK' }),
-  light: () => ({ type: 'LIGHT' })
+  dark: () => ({ type: 'THEME_DARK' }),
+  light: () => ({ type: 'THEME_LIGHT' }),
+  toggle: () => ({ type: 'THEME_TOGGLE' }),
+  set: (payload) => ({ type: 'THEME_SET', payload }),
 };
 
 /* ============================================================================
@@ -23,11 +25,17 @@ const reducer = (state = themes.light, action) => {
 
   switch (action.type) {
 
-    case 'DARK':
+    case 'THEME_DARK':
       return themes.dark;
 
-    case 'LIGHT':
+    case 'THEME_LIGHT':
       return themes.light;
+
+    case 'THEME_TOGGLE':
+      return state.name === 'Light' ? themes.dark : themes.light;
+
+    case 'THEME_SET':
+      return action.payload === 'Light' ? themes.light : themes.dark;
 
     default:
       return state;

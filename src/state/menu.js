@@ -1,24 +1,34 @@
 /* ============================================================================
- * Imports
+ * Actions
  * ========================================================================= */
-import { reducer as theme } from '../theme';
-import { reducer as user } from '../user';
-import { reducer as menu } from '../menu';
+const actions = {
+  show: () => ({ type: 'MENU_SHOW' }),
+  hide: () => ({ type: 'MENU_HIDE' }),
+  toggle: () => ({ type: 'MENU_TOGGLE' }),
+};
 
 /* ============================================================================
- * Combine
+ * Reducers
  * ========================================================================= */
-import { combineReducers } from 'redux';
-const reducers = combineReducers
-  (
-    {
-      theme,
-      user,
-      menu
-    }
-  );
+const reducer = (state = false, action) => {
+
+  switch (action.type) {
+
+    case 'MENU_SHOW':
+      return true;
+
+    case 'MENU_HIDE':
+      return false;
+
+    case 'MENU_TOGGLE':
+      return !state;
+
+    default:
+      return state;
+  }
+}
 
 /* ============================================================================
  * Exports
  * ========================================================================= */
-export default reducers;
+export { actions, reducer };

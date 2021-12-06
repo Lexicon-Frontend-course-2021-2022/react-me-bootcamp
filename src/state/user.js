@@ -2,8 +2,8 @@
  * Actions
  * ========================================================================= */
 const actions = {
-  login: (payload) => ({ type: 'LOGIN', payload }),
-  logout: () => ({ type: 'LOGOUT' })
+  login: (payload) => ({ type: 'USER_LOGIN', payload }),
+  logout: () => ({ type: 'USER_LOGOUT' })
 };
 
 /* ============================================================================
@@ -13,10 +13,10 @@ const reducer = (state = null, action) => {
 
   switch (action.type) {
 
-    case 'LOGIN':
+    case 'USER_LOGIN':
       return action.payload;
 
-    case 'LOGOUT':
+    case 'USER_LOGOUT':
       return null;
 
     default:

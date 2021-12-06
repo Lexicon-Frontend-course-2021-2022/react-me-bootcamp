@@ -41,33 +41,35 @@ const Username = styled.div`
 /* ============================================================================
  * Component
  * ========================================================================= */
-const Component = () => {
+const UserWidget = () => {
 
   /* Boilerplate */
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const { loginWithPopup, logout } = useAuth0();
+  const { loginWithPopup } = useAuth0();
 
   if (state.user) {
     return (
       <User>
-        <Username>{state.user.name}</Username>
         <Gravatar
           url={state.user.picture}
-          onClick={() => { logout({ localOnly: true }); dispatch(actions.user.logout()); }}
+          onClick={() => {
+            dispatch(actions.menu.toggle());
+          }}
         />
+        <Username>{state.user.name}</Username>
       </User>
     )
   }
   else {
     return (
       <User>
-        <Username>Not logged in</Username>
         <Gravatar
           url={state.theme.name === 'Dark' ? dark : light}
           onClick={() => loginWithPopup()}
         />
+        <Username>Not logged in</Username>
       </User>
     )
 
@@ -77,4 +79,4 @@ const Component = () => {
 /* ============================================================================
  * Exports
  * ========================================================================= */
-export default Component
+export default UserWidget;

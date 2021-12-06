@@ -1,31 +1,32 @@
-import dark from './logo-dark.png';
-import light from './logo-light.png';
-
 /* ============================================================================
  * Styling
  * ========================================================================= */
 import styled from "styled-components";
 
-const Logo = styled.div`
-  background-image: url("${(state) => state.theme.name === 'Dark' ? dark : light}");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 0 auto 0 0;
-  height: ${(state) => state.theme.header.height * 0.7}px;
-  width: ${(state) => state.theme.header.height * 0.7}px;
-`;
+const Sign = styled.div`
+  margin: 0 0 0 auto;
+  height: 100%;
+  background-color: ${(state) => state.theme.highlight.neutral};
+  color: ${(state) => state.theme.header.color};
 
+  border: 2px solid ${(state) => state.theme.main.color};
+
+  display: flex;
+  align-items: center;
+  font-size: ${(state) => state.theme.header.height * 0.5}px;
+  transform: rotate(-5deg);
+  padding: 0 10px;
+`
 /* ============================================================================
  * Component
  * ========================================================================= */
-const Component = () => {
+const LogoWidget = () => {
   return (
-    <Logo />
+    <Sign>REACT::ME</Sign>
   )
 };
 
 /* ============================================================================
  * Exports
  * ========================================================================= */
-export default Component
+export default LogoWidget

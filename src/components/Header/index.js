@@ -1,7 +1,7 @@
 /* ============================================================================
  * Imports
  * ========================================================================= */
-import Logo from "./Logo";
+import LogoWidget from "./Logo";
 import User from "./User";
 
 /* ============================================================================
@@ -14,21 +14,24 @@ const Header = styled.header`
   color: var(--color-header);
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
-  gap: 20px;
+  gap: 5px;
   padding: 0 10px;
+  border-bottom: 1px solid ${(state) => state.theme.header.color}4;
+  border-top: 1px solid ${(state) => state.theme.header.color}4;
+
 `;
 
 /* ============================================================================
  * Component
  * ========================================================================= */
-const Navbar = () => {
+const HeaderArea = () => {
   return (
     <>
       <Header>
-        <Logo />
         <User />
+        <LogoWidget />
       </Header>
     </>
   )
@@ -37,4 +40,4 @@ const Navbar = () => {
 /* ============================================================================
  * Exports
  * ========================================================================= */
-export default Navbar
+export default HeaderArea;

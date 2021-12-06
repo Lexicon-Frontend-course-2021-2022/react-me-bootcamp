@@ -19,11 +19,16 @@ const color = '#fff';
 const backgroundColorExtra = '#444';
 const colorExtra = '#ccc';
 
+const colorNeutral = '#08f';
+const colorGood = '#088';
+const colorBad = '#800';
+
 /* ============================================================================
  * Use lodash to merge theme with common settings
  * ========================================================================= */
 export default _.merge({}, common, {
-  name,
+  name: name,
+
   header: {
     backgroundColor: backgroundColorExtra,
     color: colorExtra,
@@ -38,4 +43,10 @@ export default _.merge({}, common, {
     backgroundColor: backgroundColorExtra,
     color: colorExtra,
   },
+
+  highlight: {
+    neutral: colorNeutral,
+    good: colorGood,
+    bad: colorBad
+  }
 });
