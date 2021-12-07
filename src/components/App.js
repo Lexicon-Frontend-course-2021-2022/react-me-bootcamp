@@ -6,10 +6,15 @@ import actions from '../state/actions'
 
 import { loadSettings } from '../lib/localStorage';
 
+import { BrowserRouter as Router } from 'react-router-dom';
+
 /* ============================================================================
  * Styled components
  * ========================================================================= */
 import styled, { ThemeProvider } from 'styled-components';
+
+import bgLight from './bg-light.png';
+import bgDark from './bg-dark.png';
 
 /* ============================================================================
  * Auth0
@@ -31,6 +36,10 @@ import { createGlobalStyle } from 'styled-components';
 /* ----------------------------------------------------------------------------
  * Global style
  * ------------------------------------------------------------------------- */
+const bg = {
+  Light: bgLight,
+  Dark: bgDark
+}
 const GlobalStyle = createGlobalStyle`
 *,
 *::after,
@@ -44,6 +53,7 @@ body {
   margin: 0;
   height: 100wh;
   width: 100wv;
+  background-image: url(${(style) => bg[style.theme.name]});
 }
 
 button {
@@ -69,6 +79,25 @@ button:hover {
   opacity: 1;
 }
 
+
+a {
+  text-decoration: none;
+  color: ${(state) => state.theme.main.color};
+
+  &.header {
+    color: ${(state) => state.theme.header.color};
+  }
+}
+
+header {
+  position: fixed;
+  top: 0;
+}
+
+footer {
+  position: fixed;
+  top: calc(100vh - ${(state) => state.theme.footer.height}px);
+}
 `;
 
 /* ----------------------------------------------------------------------------
@@ -76,17 +105,19 @@ button:hover {
  * ------------------------------------------------------------------------- */
 const App = styled.div`
   height: 100%;
-  display: grid;
-  grid-template-areas: 
-    "header" 
-    "main" 
-    "footer"
-  ;
-  grid-template-rows: 
-    ${(state) => state.theme.header.height}px
-    calc(100vh - ${(state) => state.theme.header.height}px - ${(state) => state.theme.footer.height}px) 
-    ${(state) => state.theme.footer.height}px
-  ;
+  display: flex;
+  flex-direction: column;
+  // display: grid;
+  // grid-template-areas: 
+  //   "header" 
+  //   "main" 
+  //   "footer"
+  // ;
+  // grid-template-rows: 
+  //   ${(state) => state.theme.header.height}px
+  //   calc(100vh - ${(state) => state.theme.header.height}px - ${(state) => state.theme.footer.height}px) 
+  //   ${(state) => state.theme.footer.height}px
+  // ;
 `
 
 /* ============================================================================
@@ -127,9 +158,11 @@ function TheApp() {
     <ThemeProvider theme={state.theme}>
       <GlobalStyle />
       <App>
-        <Header />
-        <Main />
-        <Footer />
+        <Router>
+          <Header />
+          <Main />
+          <Footer />
+        </Router>
       </App>
     </ThemeProvider>
   );

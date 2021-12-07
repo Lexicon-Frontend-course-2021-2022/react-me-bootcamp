@@ -15,8 +15,11 @@ const Footer = styled.footer`
   align-items: center;
   gap: 10px;
 
+  height: ${(state) => state.theme.footer.height}px;
+  width: 100%;
   background-color: ${(state) => state.theme.footer.backgroundColor};
   color: ${(state) => state.theme.footer.color};
+  opacity: 95%;
 `
 
 const Copyright = styled.div`

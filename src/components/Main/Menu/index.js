@@ -6,6 +6,8 @@ import actions from '../../../state/actions'
 
 import { saveSettings } from '../../../lib/localStorage';
 
+import { Link } from "react-router-dom";
+
 /* ============================================================================
  * Auth0
  * ========================================================================= */
@@ -15,6 +17,8 @@ import { useAuth0 } from "@auth0/auth0-react";
  * Components
  * ========================================================================= */
 import Slider from '../../Widgets/Slider';
+import MenuItem from './Widgets/MenuItem';
+import NavigationLink from './Widgets/NavigationLink';
 
 /* ============================================================================
  * Styling
@@ -23,22 +27,16 @@ import styled from "styled-components";
 
 const Menu = styled.div`
   padding: 5px 0 5px 0;
-  position: absolute;
+  position: fixed;
+  top: ${(state) => state.theme.header.height}px;
   background-color: ${(state) => state.theme.header.backgroundColor};
   color: ${(state) => state.theme.header.color};
   width: 200px;
   border: 1px solid ${(state) => state.theme.header.color}4;
   border-top: none;
   cursor: pointer;
-`;
-
-const MenuItem = styled.div`
-  height: 26px;
-  font-size: 18px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-left: 5px;
+  border-radius: 0 0 20px 0;
+  opacity: 95%;
 `;
 
 const Section = styled.div`
@@ -50,7 +48,7 @@ const Br = styled.div`
   background-color: ${(state) => state.theme.header.color};
   height: 1px;
   opacity: 25%;
-  margin-top: 10px;
+  margin-top: 5px;
 `;
 
 const FloatRight = styled.div`
@@ -70,16 +68,16 @@ const UserMenu = () => {
 
   const { logout, loginWithPopup } = useAuth0();
 
+  console.log(window.location.pathname);
   if (state.menu) {
     if (state.user) {
       return (
         <Menu onMouseLeave={() => dispatch(actions.menu.hide())}>
 
           <Section>Navigation</Section>
-
-          <MenuItem>Main page</MenuItem>
-          <MenuItem>Another page</MenuItem>
-          <MenuItem>A third page</MenuItem>
+          <NavigationLink path="/">Main page</NavigationLink>
+          <NavigationLink path="/about">About this app...</NavigationLink>
+          <NavigationLink path="/help">Help</NavigationLink>
 
           <Br />
           <Section>Settings</Section>
@@ -97,15 +95,13 @@ const UserMenu = () => {
           <Section>User</Section>
 
           <MenuItem onClick={() => {
-            dispatch(actions.menu.hide());
-            dispatch(actions.theme.light());
             logout();
             dispatch(actions.user.logout());
           }}>
             <b>Log out</b>
           </MenuItem>
 
-        </Menu>
+        </Menu >
       )
     } else {
       return (
