@@ -119,11 +119,13 @@ function TheApp() {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
+  /* Auth0 */
   const { user, isAuthenticated } = useAuth0();
 
+  /* Handle login */
   if (isAuthenticated && !state.user) {
     /* 
-     * Wrap dispatch using a timer with timeout of 0ms. 
+     * Wrap dispatch using a timer with a timeout of 0ms. 
      *
      * This seems to be a good workaround for the following error: 
      * 
@@ -134,12 +136,12 @@ function TheApp() {
     setTimeout(() => {
       dispatch(actions.user.login(user));
       dispatch(actions.theme.set(loadSettings(user.nickname, 'theme')));
-    }
-      , 0);
+    }, 0);
 
 
   }
 
+  /* Handle logout */
   if (!isAuthenticated && state.user) {
     dispatch(actions.user.logout());
   }

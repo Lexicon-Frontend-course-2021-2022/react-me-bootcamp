@@ -6,7 +6,7 @@ import { reducer as user } from '../user';
 import { reducer as menu } from '../menu';
 
 /* ============================================================================
- * Combine
+ * Combine reducers
  * ========================================================================= */
 import { combineReducers } from 'redux';
 const reducers = combineReducers

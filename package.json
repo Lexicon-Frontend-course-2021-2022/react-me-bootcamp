@@ -1,6 +1,6 @@
 {
     "name": "react-me-bootcamp",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "private": true,
     "dependencies": {
         "@auth0/auth0-react": "^1.8.0",
