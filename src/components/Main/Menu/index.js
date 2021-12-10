@@ -6,8 +6,6 @@ import actions from '../../../state/actions'
 
 import { saveSettings } from '../../../lib/localStorage';
 
-import { Link } from "react-router-dom";
-
 /* ============================================================================
  * Auth0
  * ========================================================================= */
@@ -18,7 +16,8 @@ import { useAuth0 } from "@auth0/auth0-react";
  * ========================================================================= */
 import Slider from '../../Widgets/Slider';
 import MenuItem from './Widgets/MenuItem';
-import NavigationLink from './Widgets/NavigationLink';
+import NavigationSection from './Widgets/NavigationSection';
+import SectionHeader from './Widgets/SectionHeader';
 
 /* ============================================================================
  * Styling
@@ -39,12 +38,8 @@ const Menu = styled.div`
   opacity: 95%;
 `;
 
-const Section = styled.div`
-  margin: 0 0 0 2px;
-  font-size: 10px;
-`
-
-const Br = styled.div`
+/* Just a menu divider */
+const MenuDivider = styled.div`
   background-color: ${(state) => state.theme.header.color};
   height: 1px;
   opacity: 25%;
@@ -57,7 +52,7 @@ const FloatRight = styled.div`
 
 
 /* ============================================================================
- * 
+ * Component
  * ========================================================================= */
 
 const UserMenu = () => {
@@ -68,20 +63,25 @@ const UserMenu = () => {
 
   const { logout, loginWithPopup } = useAuth0();
 
-  console.log(window.location.pathname);
   if (state.menu) {
     if (state.user) {
       return (
         <Menu onMouseLeave={() => dispatch(actions.menu.hide())}>
 
-          <Section>Navigation</Section>
-          <NavigationLink path="/">Main page</NavigationLink>
-          <NavigationLink path="/about">About this app...</NavigationLink>
-          <NavigationLink path="/help">Help</NavigationLink>
+          {/* Navigation section */}
+          <NavigationSection
+            header='Navigation'
+            items={
+              [
+                { path: '/', text: "Home" },
+                { path: '/about', text: "About this app" },
+                { path: '/help', text: "Help" },
+              ]
+            } />
 
-          <Br />
-          <Section>Settings</Section>
-
+          {/* Settings section */}
+          <MenuDivider />
+          <SectionHeader>Settings</SectionHeader>
           <MenuItem onClick={() => {
             saveSettings(state.user.nickname, 'theme', state.theme.name === 'Dark' ? 'Light' : 'Dark');
             dispatch(actions.theme.toggle());
@@ -91,13 +91,10 @@ const UserMenu = () => {
           </MenuItem>
 
 
-          <Br />
-          <Section>User</Section>
-
-          <MenuItem onClick={() => {
-            logout();
-            dispatch(actions.user.logout());
-          }}>
+          {/* User section */}
+          <MenuDivider />
+          <SectionHeader>User</SectionHeader>
+          <MenuItem onClick={() => { logout(); dispatch(actions.user.logout()); }}>
             <b>Log out</b>
           </MenuItem>
 
@@ -106,7 +103,7 @@ const UserMenu = () => {
     } else {
       return (
         <Menu onMouseLeave={() => dispatch(actions.menu.hide())}>
-          <Section>User</Section>
+          <SectionHeader>User</SectionHeader>
 
           <MenuItem onClick={() => {
             dispatch(actions.menu.hide());
