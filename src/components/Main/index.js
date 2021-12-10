@@ -14,7 +14,9 @@ import React from 'react';
 
 import UserMenu from './Menu';
 
-// Pages
+/* ============================================================================
+ * Pages
+ * ========================================================================= */
 import MainPage from './Pages/Main';
 import AboutPage from './Pages/About';
 import HelpPage from './Pages/Help';
@@ -23,7 +25,6 @@ import HelpPage from './Pages/Help';
  * Styling
  * ========================================================================= */
 import styled from "styled-components";
-
 
 const Main = styled.main`
   color: ${(state) => state.theme.main.color};
@@ -51,9 +52,10 @@ const MainArea = () => {
 
   /* Boilerplate */
   const state = useSelector(state => state);
-  //  const dispatch = useDispatch();
 
-  // Redirect not logged in users to /
+  /* ============================================================================
+  * Redirect unauthorized users to root (/)
+  * ========================================================================= */
   if (!state.user && window.location.pathname !== '/') {
     window.location.pathname = '/';
   }
@@ -62,7 +64,6 @@ const MainArea = () => {
     <>
       <Main>
         <UserMenu />
-
         <Centered>
           <Routes>
             <Route exact path="/" element={<MainPage />} />

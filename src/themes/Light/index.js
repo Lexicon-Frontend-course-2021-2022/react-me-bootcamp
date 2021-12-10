@@ -2,7 +2,7 @@
  * Imports
  * ========================================================================= */
 import _ from 'lodash';
-import common from './common';
+import common from '../common';
 
 /* ============================================================================
  * Light theme
@@ -18,6 +18,9 @@ const color = '#000';
 const backgroundColorExtra = '#ccc';
 const colorExtra = '#000';
 
+/* ============================================================================
+ * Misc colors
+ * ========================================================================= */
 const colorNeutral = '#c8f';
 const colorGood = '#088';
 const colorBad = '#800';
@@ -36,7 +39,7 @@ export default _.merge({}, common, {
 
   main: {
     backgroundColor,
-    color
+    color,
   },
 
   footer: {

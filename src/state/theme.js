@@ -1,8 +1,8 @@
 /* ============================================================================
  * Imports
  * ========================================================================= */
-import light from '../themes/light';
-import dark from '../themes/dark';
+import light from '../themes/Light';
+import dark from '../themes/Dark';
 
 const themes = {
   light, dark

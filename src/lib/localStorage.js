@@ -1,4 +1,6 @@
-// localStorage.js
+/* ============================================================================
+ * Load specific setting from local storage
+ * ========================================================================= */
 export const loadSettings = (username, name) => {
   try {
     const serializedState = localStorage.getItem(username + '_' + name);
@@ -11,9 +13,10 @@ export const loadSettings = (username, name) => {
   }
 };
 
+/* ============================================================================
+ * Save specific setting to local storage
+ * ========================================================================= */
 export const saveSettings = (username, name, data) => {
-
-
   try {
     const serializedState = JSON.stringify(data);
     localStorage.setItem(username + '_' + name, serializedState);

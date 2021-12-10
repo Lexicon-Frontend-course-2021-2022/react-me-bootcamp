@@ -36,10 +36,11 @@ import { createGlobalStyle } from 'styled-components';
 /* ----------------------------------------------------------------------------
  * Global style
  * ------------------------------------------------------------------------- */
-const bg = {
+const backgroundImage = {
   Light: bgLight,
   Dark: bgDark
 }
+
 const GlobalStyle = createGlobalStyle`
 *,
 *::after,
@@ -53,7 +54,7 @@ body {
   margin: 0;
   height: 100wh;
   width: 100wv;
-  background-image: url(${(style) => bg[style.theme.name]});
+  background-image: url(${(state) => backgroundImage[state.theme.name]});
 }
 
 button {
@@ -107,17 +108,6 @@ const App = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  // display: grid;
-  // grid-template-areas: 
-  //   "header" 
-  //   "main" 
-  //   "footer"
-  // ;
-  // grid-template-rows: 
-  //   ${(state) => state.theme.header.height}px
-  //   calc(100vh - ${(state) => state.theme.header.height}px - ${(state) => state.theme.footer.height}px) 
-  //   ${(state) => state.theme.footer.height}px
-  // ;
 `
 
 /* ============================================================================
